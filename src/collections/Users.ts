@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { LexicalEditor } from '@payloadcms/richtext-lexical/lexical'
 import { defaultEditorFeatures, lexicalEditor } from '@payloadcms/richtext-lexical'
+import { MarkNode } from '@payloadcms/richtext-lexical/lexical/mark'
 export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
@@ -16,7 +17,7 @@ export const Users: CollectionConfig = {
       name:'Content',
       type:'richText',
       editor :lexicalEditor({admin: { placeholder: 'Type your content here ...'  },features: ({ defaultFeatures, rootFeatures }) => {
-        console.log(defaultFeatures);
+        console.log(MarkNode);
         return [...defaultFeatures, ...rootFeatures];
       }})
     }
