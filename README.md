@@ -36,9 +36,9 @@ This repository contains my implementation of the Full Stack Engineer Challenge 
 - Removed **superscript** and **subscript** buttons from the default config.
 - Replaced **superscript** with a custom **footnote** feature:
   - Inserts an incrementing superscript number.
-  - Opens a modal to add rich text content (limited to p, italic, bold, strike, link).
+  - Opens a modal to add rich text content (limited to italic, bold, strike, link).
   - Preview + Edit/Delete buttons when hovering over the node.
-  - Footnotes render in HTML as `<sup>` with `<section>` at bottom containing `<ol><li>` list of content.
+  - Footnotes render in HTML as `<sup>` with `<section>` at bottom containing `<ul><li>` list of content.
 - ✅ **[Watch Demo Video on Loom](https://www.loom.com/share/6c7d7bb2c83c4ba5a3f5e92869bf5f00?sid=e934a575-82b0-4aec-866d-b8d65c67a75d)**
 
 ---
