@@ -140,6 +140,12 @@ svg {
       border: 1px solid rgb(1000, 1000, 1000);
     }
   }
+  .editor-text-strikethrough {
+    text-decoration: line-through !important;
+    text-decoration-line: line-through !important;
+    text-decoration-color: black; 
+    text-decoration-thickness: 2px; 
+  }
 
   .footer {
     display: flex;

@@ -27,7 +27,7 @@ import { LinkPlugin } from '@payloadcms/richtext-lexical/lexical/react/LexicalLi
 import { format } from 'path'
 
 
-// Floating Toolbar that appears on text selection
+
 const FloatingToolbar = () => {
   const [editor] = useLexicalComposerContext()
   const [isVisible, setIsVisible] = useState(false)
@@ -46,7 +46,7 @@ const FloatingToolbar = () => {
           return
         }
 
-        // Check if selection has formatting using the official Payload approach
+      
         let bold = false
         let italic = false
         let strikethrough = false
@@ -58,14 +58,9 @@ const FloatingToolbar = () => {
           strikethrough = selection.hasFormat('strikethrough')
         }
 
-        // Debug logging
-        console.log('Selection formats:', {
-          bold: selection.hasFormat('bold'),
-          italic: selection.hasFormat('italic'),
-          strikethrough: selection.hasFormat('strikethrough')
-        })
 
-        // Check for link nodes
+       
+        
         const nodes = selection.getNodes()
         for (const node of nodes) {
           if ($isLinkNode(node) || $isLinkNode(node.getParent())) {
@@ -79,31 +74,29 @@ const FloatingToolbar = () => {
         setIsStrikethrough(strikethrough)
         setIsLink(link)
 
-        // Calculate position
+
         const domSelection = window.getSelection()
         if (domSelection && domSelection.rangeCount > 0) {
           const range = domSelection.getRangeAt(0)
           const rect = range.getBoundingClientRect()
           
-          // Get viewport dimensions
+     
           const viewportWidth = window.innerWidth
-          
-          // Calculate toolbar position
+
           let x = rect.left + rect.width / 2
-          let y = rect.top - 35 // Closer to the text
+          let y = rect.top - 35 
           
-          // Ensure toolbar doesn't go off-screen horizontally
-          const toolbarWidth = 200 // Approximate toolbar width
+         
+          const toolbarWidth = 200
           if (x - toolbarWidth / 2 < 10) {
             x = toolbarWidth / 2 + 10
           } else if (x + toolbarWidth / 2 > viewportWidth - 10) {
             x = viewportWidth - toolbarWidth / 2 - 10
           }
           
-          // Ensure toolbar doesn't go off-screen vertically
-          // const toolbarHeight = 50 // Approximate toolbar height
+        
           if (y < 10) {
-            y = rect.bottom + 10 // Position below the text if not enough space above
+            y = rect.bottom + 10 
           }
           
           setPosition({ x, y })
@@ -117,7 +110,7 @@ const FloatingToolbar = () => {
 
   const handleFormat = (format: 'bold' | 'italic' | 'strikethrough') => {
     console.log('format', format);
-    // Try direct formatting instead of dispatchCommand
+  
     editor.update(() => {
       const selection = $getSelection();
       if ($isRangeSelection(selection)) {
@@ -130,6 +123,7 @@ const FloatingToolbar = () => {
 
   return (
     <div
+   
       className="floating-toolbar"
       style={{
         position: 'fixed',
@@ -187,7 +181,15 @@ const FloatingToolbar = () => {
           type="button"
           onClick={() => {
             console.log('Button clicked, isStrikethrough:', isStrikethrough);
-            handleFormat('strikethrough')
+            handleFormat('strikethrough');
+            setTimeout(() => {
+              const rootElement = editor.getRootElement();
+              if (rootElement) {
+                console.log('Editor HTML:', rootElement.innerHTML);
+              } else {
+                console.log('Root element is null');
+              }
+            }, 100);
           }}
           style={{
             padding: '4px 6px',
@@ -205,7 +207,7 @@ const FloatingToolbar = () => {
         <button
           type="button"
           onClick={() => {
-            // Toggle link using Lexical's command
+            
             editor.dispatchCommand(TOGGLE_LINK_COMMAND, isLink ? null : 'https://');
           }}
           style={{
@@ -238,6 +240,42 @@ export function DynamicRichTextEditor({
 
   return (
     <div>
+      {/* Add the CSS styles using regular style tag */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .editor-text-strikethrough {
+            text-decoration: line-through !important;
+          }
+          
+          .editor-text-bold {
+            font-weight: bold !important;
+          }
+          
+          .editor-text-italic {
+            font-style: italic !important;
+          }
+          
+          .editor-text-underline {
+            text-decoration: underline !important;
+          }
+          
+          .editor-paragraph {
+            margin: 0.5em 0;
+            line-height: 1.6;
+          }
+          
+          .editor-root {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          }
+          
+          .editor-link {
+            color: #0074d9;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        `
+      }} />
+      
       <LexicalComposer
         initialConfig={{
           namespace: 'FootnoteEditor',
@@ -247,14 +285,14 @@ export function DynamicRichTextEditor({
           nodes: [LinkNode, TextNode],
           theme: {
             text: {
-              bold: 'font-weight: bold !important;',
-              italic: 'font-style: italic !important;',
+              bold: 'editor-text-bold',
+              italic: 'editor-text-italic',
               strikethrough: 'editor-text-strikethrough',
-              underline: 'text-decoration: underline !important;',
+              underline: 'editor-text-underline',
             },
-            paragraph: 'margin: 0.5em 0; line-height: 1.6;',
-            root: 'font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;',
-            link: 'color: #0074d9; text-decoration: underline; cursor: pointer;',
+            paragraph: 'editor-paragraph',
+            root: 'editor-root',
+            link: 'editor-link',
           },
         }}
       >
@@ -277,7 +315,7 @@ export function DynamicRichTextEditor({
           ErrorBoundary={({ children }) => <>{children}</>}
         />
         <HistoryPlugin />
-        <FormattingPlugin />
+      
         <FloatingToolbar />
         <LinkPlugin />
         <OnChangePlugin
@@ -290,7 +328,7 @@ export function DynamicRichTextEditor({
       <button
         type="button"
         onClick={() => {
-          // No functionality - button is clickable but does nothing
+          
           console.log('Button clicked but no action taken')
         }}
         style={{
@@ -315,7 +353,7 @@ export function DynamicRichTextEditor({
   )
 }
 
-// Plugin to initialize content when the editor is ready
+
 function InitializeContentPlugin({ content }: { content: string }) {
   const [editor] = useLexicalComposerContext()
   
@@ -333,31 +371,5 @@ function InitializeContentPlugin({ content }: { content: string }) {
     }
   }, [editor, content])
 
-  return null
-}
-
-// Plugin to register formatting commands
-function FormattingPlugin() {
-  const [editor] = useLexicalComposerContext()
-  
-  useEffect(() => {
-    console.log('FormattingPlugin: Registering commands');
-    // Register the formatting commands
-    editor.registerCommand(
-      FORMAT_TEXT_COMMAND,
-      (format: any) => {
-        console.log('FormattingPlugin: FORMAT_TEXT_COMMAND called with:', format);
-        const selection = $getSelection()
-        if ($isRangeSelection(selection)) {
-          selection.formatText(format)
-          console.log('FormattingPlugin: Format applied successfully');
-        }
-        return true
-      },
-      1
-    )
-    console.log('FormattingPlugin: Commands registered');
-  }, [editor])
-  
   return null
 }

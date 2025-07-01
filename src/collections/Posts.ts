@@ -22,8 +22,11 @@ export const Post: CollectionConfig = {
       editor: lexicalEditor({
         admin: { placeholder: 'Type your content here ...' },
         features: ({ defaultFeatures }) => {
+          const filteredFeatures = defaultFeatures.filter(
+            (feature) => feature.key !== 'subscript'
+          );
           const finalFeatures = [
-            ...defaultFeatures,
+            ...filteredFeatures,
             SuperscriptOverrideServerFeature(),
             MyFeature(),
           ];
