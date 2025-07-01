@@ -1,36 +1,55 @@
-import React, { useState } from 'react';
-import { SerializedEditorState } from 'lexical';
+'use client'
+import React, { useState } from 'react'
+import { SerializedEditorState } from 'lexical'
+import { EditFootnoteModal } from './ModalDrawer'
+import { relative } from 'path'
+import FloatingEditorIcon from './FloatingEditorIcon'
 
-export default function FootnoteComponent({
+export function FootComponent({
   id,
-  content,
-  editor,
-  nodeKey,
+  nodekey,
+  gt,
+  fn,
 }: {
-  id: string;
-  content: SerializedEditorState;
-  editor: any;
-  nodeKey: string;
+  id: number
+  nodekey: string
+  gt: () => string
+  fn: (content: string, editorState?: any) => void
 }) {
-  const [open, setOpen] = useState(false);
-
+  const [open, setOpen] = useState(false)
+  const [openmodal, setopenmodal] = useState(false)
+  // console.log(typeof fn, typeof gt, "Footnote");
   return (
-    <>
+    <span
+      style={{
+        position: 'relative',
+        display: 'inline-block'
+      }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <sup
-        onClick={() => setOpen(true)}
-        style={{ cursor: 'pointer', color: 'blue' }}
+        style={{
+          color: 'blue',
+          fontSize: '0.8em',
+          verticalAlign: 'super',
+          lineHeight: '1',
+          cursor: 'pointer',
+        }}
       >
-        [{id}]
+        <a>{id}</a>
       </sup>
-      {open && (
-        <div className="footnote-modal">
-          <div className="modal-content">
-            <h4>Footnote [{id}]</h4>
-            {/* Render lexical editor in read-only mode here if desired */}
-            <button onClick={() => setOpen(false)}>Close</button>
-          </div>
-        </div>
+      {open && <FloatingEditorIcon setopen={setOpen} setopenmodal={setopenmodal} footnoteContent={gt()} />}
+      {openmodal && (
+        <EditFootnoteModal
+          id={1}
+          gt={gt}
+          onClose={() => {
+            setopenmodal(false)
+          }}
+          nodekey={nodekey}
+        />
       )}
-    </>
-  );
+    </span>
+  )
 }

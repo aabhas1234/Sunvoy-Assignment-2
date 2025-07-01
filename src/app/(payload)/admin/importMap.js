@@ -22,6 +22,7 @@ import { UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0
 import { HorizontalRuleFeatureClient as HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { MyClientFeature as MyClientFeature_eca8cd94df9e1ce56b6632eaf5f0fb57 } from '../../../custom_features/mark/clientfeature'
+import { SuperscriptOverrideClientFeature as SuperscriptOverrideClientFeature_ca2e0138070980138c7b2c302b290b91 } from '../../../custom_features/Addfootnote/clientoverridefeature'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -47,5 +48,6 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UploadFeatureClient": UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient": HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient": InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
-  "./custom_features/mark/clientfeature#MyClientFeature": MyClientFeature_eca8cd94df9e1ce56b6632eaf5f0fb57
+  "./custom_features/mark/clientfeature#MyClientFeature": MyClientFeature_eca8cd94df9e1ce56b6632eaf5f0fb57,
+  "./custom_features/Addfootnote/clientoverridefeature#SuperscriptOverrideClientFeature": SuperscriptOverrideClientFeature_ca2e0138070980138c7b2c302b290b91
 }
