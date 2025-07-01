@@ -1,67 +1,51 @@
-# Payload Blank Template
+# Full Stack Engineer Challenge – Payload CMS + Lexical Editor Customization
 
-This template comes configured with the bare minimum to get started on anything you need.
+This repository contains my implementation of the Full Stack Engineer Challenge using **Payload CMS**, **MongoDB**, and **Lexical Editor**, fully written in **TypeScript**.
 
-## Quick start
+---
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+## 🗂️ Steps Completed
 
-## Quick Start - local setup
+### ✅ Step 1: GitHub Repository
+- Created this public GitHub repository for all commits and progress tracking.
 
-To spin up this template locally, follow these steps:
+### ✅ Step 2: Payload CMS Setup
+- Bootstrapped a new Payload CMS instance using the **blank template**.
+- Connected to a **MongoDB** database.
+- Initialized TypeScript-based backend.
 
-### Clone
+### ✅ Step 3: Lexical Editor Integration
+- Modified `payload.config.ts` to use **Lexical Editor** as the rich text handler.
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+### ✅ Step 4: Posts Collection
+- Created a `posts` collection with the following fields:
+  - `title`: plain text field.
+  - `content`: richText field using Lexical Editor.
 
-### Development
+### ✅ Step 5: Custom `<mark>` Lexical Feature
+- Added a button to the floating Lexical toolbar between **strikethrough** and **subscript**.
+- The button uses FontAwesome’s `faHighlighter` icon.
+- Functionality includes:
+  - Toggle wrapping/unwrapping selection in `<mark>` tags.
+  - Button activates only when selection is marked.
+  - Selection remains active after toggling.
+  - HTML output parses `<mark>` nodes correctly.
+- ✅ **[Watch Demo Video on Loom](https://www.loom.com/share/9d0cd066deb34934ac162fa5694d6cd7?sid=bc1808c1-7e4b-4ff4-a8ed-e5b021f42fa7)**
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URI` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+### ✅ Step 6: Footnote Lexical Feature
+- Removed **superscript** and **subscript** buttons from the default config.
+- Replaced **superscript** with a custom **footnote** feature:
+  - Inserts an incrementing superscript number.
+  - Opens a modal to add rich text content (limited to p, italic, bold, strike, link).
+  - Preview + Edit/Delete buttons when hovering over the node.
+  - Footnotes render in HTML as `<sup>` with `<section>` at bottom containing `<ol><li>` list of content.
+- ✅ **[Watch Demo Video on Loom](https://www.loom.com/share/6c7d7bb2c83c4ba5a3f5e92869bf5f00?sid=e934a575-82b0-4aec-866d-b8d65c67a75d)**
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+---
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+## 🚀 Getting Started
 
-#### Docker (Optional)
-
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
-
-To do so, follow these steps:
-
-- Modify the `MONGODB_URI` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URI` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
-
-## How it works
-
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
-
-### Collections
-
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
-
-- #### Users (Authentication)
-
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
-
-### Docker
-
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/fullstack-payload-challenge.git
+   cd fullstack-payload-challenge
